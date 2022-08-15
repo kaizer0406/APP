@@ -1,0 +1,62 @@
+{
+  "name": "digital_coach_women",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.8",
+    "@react-native-community/art": "^1.2.0",
+    "@react-native-community/checkbox": "^0.5.12",
+    "@react-native-community/datetimepicker": "^6.1.2",
+    "@react-native-community/netinfo": "^9.3.0",
+    "@react-native-firebase/app": "^14.9.1",
+    "@react-native-firebase/auth": "^14.9.1",
+    "@react-native-firebase/firestore": "^14.9.1",
+    "@react-native-firebase/messaging": "^14.9.1",
+    "@react-native-picker/picker": "^2.4.3",
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/native-stack": "^6.6.1",
+    "@react-navigation/stack": "^6.2.1",
+    "@rneui/base": "^4.0.0-rc.3",
+    "@rneui/themed": "^4.0.0-rc.3",
+    "amazon-cognito-identity-js": "^5.2.10",
+    "aws-amplify": "^4.3.30",
+    "aws-amplify-react-native": "^6.0.5",
+    "lottie-react-native": "^5.0.1",
+    "react": "17.0.2",
+    "react-native": "0.68.1",
+    "react-native-cards-swipe": "^1.2.1",
+    "react-native-email-link": "^1.13.1",
+    "react-native-gesture-handler": "^2.4.1",
+    "react-native-modal": "^13.0.1",
+    "react-native-pie-chart": "^2.0.2",
+    "react-native-reanimated": "^2.8.0",
+    "react-native-safe-area-context": "^4.2.4",
+    "react-native-screens": "^3.13.1",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-vector-icons": "^9.1.0",
+    "react-native-youtube": "^2.0.2",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}

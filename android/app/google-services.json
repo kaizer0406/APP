@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "408603181758",
+    "project_id": "coaching-27078",
+    "storage_bucket": "coaching-27078.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408603181758:android:d174c96ea733c2eaf0d4ef",
+        "android_client_info": {
+          "package_name": "com.digital_coach_women"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408603181758-9c5c4ot6vprrn0bhd77ifuh9q24dko0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.digital_coach_women",
+            "certificate_hash": "faf071cc92d293308c9168a22c2f4ab97b90d644"
+          }
+        },
+        {
+          "client_id": "408603181758-om57kp2k4eet4dkui5pt9ulv9jki62s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4A_LDO6H8hVfKhBYS-W788BJzFMg5GYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "408603181758-om57kp2k4eet4dkui5pt9ulv9jki62s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
