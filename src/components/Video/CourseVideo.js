@@ -23,7 +23,7 @@ const CourseVideo = ({uri, time}) => {
   return (
         <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10, height: 300, width: '100%'}}>
             <YouTube
-              apiKey='API-KEY-YOUTUBE'
+              apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
               ref={videoRef}
               onReady={() => {
                 videoRef.current.seekTo(100)

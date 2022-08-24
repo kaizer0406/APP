@@ -134,7 +134,7 @@ export class CourseMicroScreen extends Component {
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{this.state.data.title}</Text>  
             <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10, height: 300, width: '100%'}}>
               <YouTube
-                apiKey='API-KEY-YOUTUBE'
+                apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
                 ref={this.videoRef}
                 onReady={() => {
                   if (this.state.data.time !== 0 && this.state.data.is_finish === false){

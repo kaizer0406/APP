@@ -1,6 +1,6 @@
 import { globals } from "../utils";
 
-const ROOT = "https://coach-web-api.herokuapp.com/api/";
+const ROOT = "https://digital-coach-women-api.herokuapp.com/api/";
 
 export default {
     async get({ url, withToken = true } = {}) {
