@@ -59,8 +59,16 @@ export class ChatSessionScreen extends Component {
           console.log('Chat exists: ', documentSnapshot.exists);
           if (documentSnapshot.exists) {
             console.log('Chat data: ', documentSnapshot.data());
-            const {userId, message}  = documentSnapshot.data()
+            console.log('Chat api: ', this.state.chats);
+            const {userId, message, date}  = documentSnapshot.data()
+            const { seconds } = date
             if (partnerId == userId){
+              if (this.state.chats.length > 0){
+                const lastChat = this.state.chats[0]
+                const {date_seconds_message} = lastChat
+                if (date_seconds_message === seconds)
+                  return
+              }
               const chats = this.state.chats
               chats.unshift({is_transmitter: false, message: message})
               this.setState({chats: chats})
@@ -74,6 +82,8 @@ export class ChatSessionScreen extends Component {
   sendChat = async () => {
     try {
       // Keyboard.dismiss()
+      if (this.state.message.trim() === '')
+        return 
       const personId = this.props.route.params.personId
       const sendMessage = this.state.message
       this.setState({message: ''})
@@ -97,8 +107,8 @@ export class ChatSessionScreen extends Component {
   }
 
   componentDidMount = async() => {
-    await this.getChats()
-    this.initFirestoreChat()
+    this.getChats().then(() => this.initFirestoreChat())
+    
   }
 
   render() {
