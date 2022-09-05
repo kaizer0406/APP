@@ -13,7 +13,7 @@ const CupCard = ({item}) => {
         <Image source={{uri: cup_image}} style={{width: 70, height: 70, resizeMode: 'contain', tintColor: colors.gray}} /> 
         }
       <View style={{flex:1, display: 'flex', justifyContent: 'center'}}>
-      <Text style={{fontFamily: constants.openSansSemiBold, fontSize: 16, flexWrap: 'wrap', width: 130 }} numberOfLines={2}>`{speciality} - {name}`</Text>
+      <Text style={{fontFamily: constants.openSansSemiBold, fontSize: 16, flexWrap: 'wrap', width: 130 }} numberOfLines={2}>{speciality} - {name}</Text>
       </View>
     </View>
   )

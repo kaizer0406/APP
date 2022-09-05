@@ -166,15 +166,17 @@ export class CourseCardScreen extends Component {
 const Card = ({item}) => {
   const {id, title, description, icon, is_link, link, order} = item
   return (
-    <View style={{flex: 1 , display: 'flex', backgroundColor: colors.white, borderRadius: 10, elevation: 5}}>
-      <View style={{marginTop: 40, paddingHorizontal: 10, flexDirection: 'row'}}>
-        {icon !== '' && 
-          <Icon name={icon} size={30} color={colors.black} style={{marginRight: 10}} /> 
-        }
-        <Text style={{ fontSize: 20, fontFamily: constants.openSansBold}}>{title}</Text>
-      </View>
-      <View style={{paddingHorizontal: 10, justifyContent: 'center', flex:1}}>
-        <Text style={{fontSize: 16, fontFamily: constants.openSansSemiBold}} >{description}</Text>
+    <View style={{width: constants.width*0.8, flex: 1 , display: 'flex', backgroundColor: colors.white, borderRadius: 10, elevation: 5}}>
+      {title != '' && 
+        <View style={{marginTop: 40, paddingHorizontal: 10, flexDirection: 'row'}}>
+          {icon !== '' && 
+            <Icon name={icon} size={30} color={colors.black} style={{marginRight: 10}} /> 
+          }
+          <Text style={{ fontSize: 28, fontFamily: constants.openSansBold}}>{title}</Text>
+        </View>
+      }
+      <View style={{paddingHorizontal: 20, justifyContent: 'center', flex:1}}>
+        <Text style={{fontSize: 26, fontFamily: constants.openSansSemiBold, textAlign: 'center'}} >{description}</Text>
       </View>
     </View>
   )

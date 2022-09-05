@@ -144,6 +144,7 @@ export class CourseDetailScreen extends Component {
                   <View key={index} style={{borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', padding: 15, backgroundColor: colors.tealishBlueIntense, marginBottom: 20}}>
                       <View style={{justifyContent: 'space-around'}}>
                         <Text style={{fontFamily: constants.openSansBold, fontSize: 18, textAlignVertical: 'center', flexWrap: 'wrap', width: 270}}>{item.title}</Text>
+                        <Text style={{fontFamily: constants.openSansBold, fontSize: 12, textAlignVertical: 'top', flexWrap: 'wrap', fontWeight: '700', width: 270}}>{item.topic}</Text>
                         {item.is_finish && 
                           <Text style={{fontFamily: constants.openSansBold, fontSize: 14, color: colors.white }}>TERMINADO</Text>
                         }

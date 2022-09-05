@@ -63,7 +63,7 @@ export class ICourseRoadMapScreen extends Component {
                       <View style={{marginLeft: 50}}>
                           {item.courses.map((course, iCourse) => 
                           (
-                            <Text key={iCourse.toString()} style={{fontSize: 18, fontFamily: constants.openSansRegular}}>* {course.title}</Text> 
+                            <Text key={iCourse.toString()} style={{fontSize: 18, fontFamily: constants.openSansRegular}}>* {course.title} {course.topic !== '' && ` - (${course.topic})`}</Text> 
                           ))}
                       </View>
                   </View>
