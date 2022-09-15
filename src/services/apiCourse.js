@@ -14,3 +14,4 @@ export default {
         return await apiDefault.get({ url })
     },
 };
+

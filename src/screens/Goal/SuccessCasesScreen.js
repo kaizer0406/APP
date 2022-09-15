@@ -4,6 +4,8 @@ import { colors, constants, images } from '../../utils'
 import {  Text } from '@rneui/themed';
 import {Button} from '@rneui/base'
 import ProfileCaseCard from '../../components/Card/ProfileCaseCard';
+import { apiStories } from '../../services';
+import { ActivityIndicator } from 'react-native';
 
 
 const routes = [
@@ -17,12 +19,39 @@ export class SuccessCasesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoad: true,
+      data: []
     };
+  }
+
+  getStories = async () => {
+    try {
+      const response = await apiStories.getAll()
+      const {message, result, error} = response
+      if (error){
+        this.setState({isLoad: false})
+        ToastAndroid.show(message, ToastAndroid.SHORT)
+      }else{
+        this.setState({isLoad: false, data: result.data})
+      }
+    }catch(e){
+      this.setState({isLoad: false})
+      ToastAndroid.show(e, ToastAndroid.SHORT)
+    }
+  }
+
+  componentDidMount = async () => {
+    await this.getStories()
   }
 
   render() {
     return (
       <View style={styles.container}>
+        {this.state.isLoad ? 
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color={colors.magenta} />
+        </View>
+        :
         <ScrollView style={{}}>
           <View style={{flexDirection: 'row', marginHorizontal: 20, marginTop: 20}}>
             <Button
@@ -50,7 +79,7 @@ export class SuccessCasesScreen extends Component {
           </View>
           <View style={{marginHorizontal: 20}}>
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17, marginBottom: 20}}>Casos de exito</Text>  
-                {routes.map((item, index, array) => (
+                {this.state.data.map((item, index, array) => (
                     <View key={index}>
                         <ProfileCaseCard item={item}  /> 
                         {index + 1 !== array.length && 
@@ -60,6 +89,7 @@ export class SuccessCasesScreen extends Component {
                 ))}
             </View>
           </ScrollView>
+        }
       </View>
     )
   }

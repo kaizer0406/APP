@@ -6,6 +6,8 @@ import {Button} from '@rneui/base'
 import { apiLevel } from '../../services';
 import { connect } from 'react-redux';
 import { saveLevel } from '../../store/actions/level';
+import YouTube from 'react-native-youtube';
+import { useRef } from 'react';
 
 export class CourseDetailScreen extends Component {
 
@@ -136,7 +138,12 @@ export class CourseDetailScreen extends Component {
           <View style={{marginHorizontal: 20}}>
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{this.state.data.speciality} - {this.state.data.name}</Text>  
             <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10}}>
-              <Image source={{uri: this.state.data.image}} style={{width: '100%', height: 300, borderRadius: 10}} />
+              {/* <Image source={{uri: this.state.data.image}} style={{width: '100%', height: 300, borderRadius: 10}} /> */}
+              <YouTube
+                apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
+                style={{ alignSelf: 'stretch', height: 300, borderRadius: 10 }}
+                videoId={this.state.data.video}
+              />
             </View>
             <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginTop: 12, marginBottom: 20}} >Microcursos</Text>
               {

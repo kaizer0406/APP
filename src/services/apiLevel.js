@@ -21,4 +21,8 @@ export default {
         const url = `specialities/levels/trophies`;
         return await apiDefault.get({ url })
     },
+    async sendTest() {
+        const url = `specialities/levels/courses/status`;
+        return await apiDefault.get({ url })
+    },
 };

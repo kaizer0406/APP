@@ -7,7 +7,7 @@ const options = [
   {name: 'Meta Actual', route: 'CurrentGoal', image: images.current_goal},
   {name: 'Mis Logros', route: 'Cup', image: images.cup},
   {name: 'Mi Evolución', route: 'Evolution', image: images.evolution},
-  {name: 'Cases de Exito', route: 'SuccessCases', image: images.success_cases},
+  {name: 'Casos de Exito', route: 'SuccessCases', image: images.success_cases},
 ]
 
 export class GoalScreen extends Component {
