@@ -21,8 +21,8 @@ export default {
         const url = `specialities/levels/trophies`;
         return await apiDefault.get({ url })
     },
-    async sendTest() {
-        const url = `specialities/levels/courses/status`;
-        return await apiDefault.get({ url })
+    async sendTest({specialityLevelId = 0, isApproved = false, points = 0 }) {
+        const url = `specialities/levels/${specialityLevelId}/test`;
+        return await apiDefault.post({ url, request: {is_approved: isApproved, points: points} })
     },
 };

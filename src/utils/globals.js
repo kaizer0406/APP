@@ -9,5 +9,7 @@ export default {
     uid: '',
     speciality: {},
     level: {},
-    course: {}
+    course: {},
+    test: [],
+    isApproved: false
 }

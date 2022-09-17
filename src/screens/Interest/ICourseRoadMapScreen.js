@@ -50,7 +50,7 @@ export class ICourseRoadMapScreen extends Component {
           <View style={{marginHorizontal: 20}}>
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{globals.speciality.name}</Text>  
             <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10}}>
-              <Image source={{uri: globals.speciality.image}} style={{width: '100%', height: 300, borderRadius: 10}} />
+              <Image source={images.roadmapui} style={{width: '100%', height: 300, borderRadius: 10, resizeMode: 'contain'}} />
             </View>
             <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginTop: 12, marginBottom: 20}} >Ruta de aprendizaje</Text>
               {globals.speciality.levels.map((item, index) => {
@@ -63,7 +63,14 @@ export class ICourseRoadMapScreen extends Component {
                       <View style={{marginLeft: 50}}>
                           {item.courses.map((course, iCourse) => 
                           (
-                            <Text key={iCourse.toString()} style={{fontSize: 18, fontFamily: constants.openSansRegular}}>* {course.title} {course.topic !== '' && ` - (${course.topic})`}</Text> 
+                            <View style={{marginBottom : 5}}>
+                            <Text key={iCourse.toString()} style={{fontSize: 20, fontFamily: constants.openSansRegular}}>* {course.title}</Text> 
+                            {course.topic !== '' && 
+                              <View style={{backgroundColor: course.topic_color, padding: 5, borderRadius: 5}}>
+                                <Text key={iCourse.toString()} style={{fontSize: 16, fontFamily: constants.openSansSemiBold}}>{course.topic}</Text> 
+                              </View> 
+                            }
+                            </View>
                           ))}
                       </View>
                   </View>

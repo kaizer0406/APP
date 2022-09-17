@@ -4,10 +4,9 @@ import { colors, constants, globals, images } from '../../utils'
 import {  Text } from '@rneui/themed';
 import {Button} from '@rneui/base'
 import { apiLevel } from '../../services';
-import { connect } from 'react-redux';
-import { saveLevel } from '../../store/actions/level';
-import YouTube from 'react-native-youtube';
-import { useRef } from 'react';
+import TestRadio from '../../components/Radio/TestRadio';
+import LoadingModal from '../../components/Modal/LoadingModal';
+import TestResultModal from '../../components/Modal/TestResultModal';
 
 export class CourseTestScreen extends Component {
 
@@ -15,32 +14,52 @@ export class CourseTestScreen extends Component {
     super(props);
     this.state = {
       isLoad: true, 
-      data: {}
+      data: [],
+      isLoadService: false,
+      showScore: false,
+      score: 0
     };
   }
 
-  getLevel = async () => {
-    try {
-      const id = this.props.route.params.id
-      const response = await apiLevel.getMatriculatedLevelById({id: id})
-      const {error, message, result} = response
-      if (error){
-        this.setState({isLoad: false})
-        ToastAndroid.show(message, ToastAndroid.SHORT)
-      }else{
-        this.props.saveLevel(result)
-        globals.level = result
-        this.setState({data: result})
-        this.setState({isLoad: false})
-      }
-    }catch (e){
-      // this.setState({isLoad: false})
-      ToastAndroid.show(e, ToastAndroid.SHORT)
-    }
+  getTest = () => {
+    const data = globals.test
+    data.map((item) => {
+      item.result = ''
+    })
+    this.setState({isLoad: false, data: data})
   }
 
-  componentDidMount = async () => {
-    await this.getLevel()
+  componentDidMount = () => {
+    this.getTest()
+  }
+
+  changeResult = (index, result) => {
+    let data = this.state.data
+    data[index].result = result
+  }
+
+  saveResult = async () => {
+    this.setState({isLoadService: true})
+    let isApproved = true
+    let points = 0
+    const data = this.state.data
+    data.forEach(item => {
+      if (item.answer !== item.result){
+        isApproved = false
+      }else{
+        points++
+      }
+    });
+    const questions = data.length
+    const score = points*20/questions;
+    this.setState({score: score})
+    const response = await apiLevel.sendTest({isApproved: isApproved, points: score, specialityLevelId: globals.level.id})
+    this.setState({isLoadService: true})
+    const {message, error , result} = response
+    if (score === 20) globals.isApproved = true
+    console.log('globals test =>', globals)
+    if (!error)
+      this.setState({isLoadService: false}, () => { this.setState({showScore: true})})
   }
 
   render() {
@@ -75,6 +94,11 @@ export class CourseTestScreen extends Component {
       </View>
       :
       <View style={styles.container}>
+        <LoadingModal isVisible={this.state.isLoadService} />
+        <TestResultModal score={this.state.score} isVisible={this.state.showScore} onClose={() => {
+          this.setState({showScore:false}, () => {this.props.navigation.goBack()})
+          }
+          }  />
         <ScrollView style={{}}>
           <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginHorizontal: 20, marginTop: 20}}>
             <Button
@@ -101,35 +125,38 @@ export class CourseTestScreen extends Component {
             />
           </View>
           <View style={{marginHorizontal: 20}}>
-            <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{this.state.data.speciality} - {this.state.data.name} - TEST</Text>  
-            {
-            this.state.data.courses.map((item, index) => (
-                <View key={index} style={{borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', padding: 15, backgroundColor: colors.tealishBlueIntense, marginBottom: 20}}>
-                    <View style={{justifyContent: 'space-around'}}>
-                      <Text style={{fontFamily: constants.openSansBold, fontSize: 18, textAlignVertical: 'center', flexWrap: 'wrap', width: 270}}>{item.title}</Text>
-                      <Text style={{fontFamily: constants.openSansBold, fontSize: 12, textAlignVertical: 'top', flexWrap: 'wrap', fontWeight: '700', width: 270}}>{item.topic}</Text>
-                      {item.is_finish && 
-                        <Text style={{fontFamily: constants.openSansBold, fontSize: 14, color: colors.white }}>TERMINADO</Text>
-                      }
-                    </View>
-                    <View style={{justifyContent: 'center'}}>
-                      <TouchableOpacity onPress={() => {
-                        this.goToMicrocourse(item)
-                      }} activeOpacity={1} style={{padding: 2, borderRadius: 10, backgroundColor: colors.bluePurple }}>
-                        <Image source={images.arrow_right} style={{resizeMode: 'contain', width: 30, height: 30, margin: 5}} /> 
-                      </TouchableOpacity>
-                    </View>
-                </View>
-              )
-            )}
+            <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginVertical: 17}}>Prueba</Text>  
+              {
+                this.state.data.map((item, index, array) => 
+                  <TestRadio answer={item.answer} onPress={(result) => this.changeResult(index, result)} question={item.question} options={item.options} key={index} />
+                )
+              }
+               <Button
+                  title={'Enviar'}
+                  onPress={() => {
+                    this.saveResult()
+                  }}
+                  titleStyle={{
+                    color:colors.white,
+                    fontSize: 18, 
+                    marginVertical: 5,
+                    fontFamily: constants.openSansBold
+                  }}
+                  buttonStyle={{
+                    backgroundColor: colors.bluePurple
+                  }}
+                  containerStyle={{
+                    width: '100%',
+                    marginVertical: 20,
+                    borderRadius: 10, 
+                  }}
+                />
             </View>
           </ScrollView>
       </View>
     )
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -139,18 +166,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state) => {
-  console.log('state => ', state.level.level.courses)
-  return {
-    level: state.level.level,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    saveLevel: (level) => dispatch(saveLevel(level)),
-  };
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(CourseDetailScreen);
+export default CourseTestScreen

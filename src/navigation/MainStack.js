@@ -18,6 +18,9 @@ import ProfileScreen from '../screens/Settings/ProfileScreen'
 import ChatSessionScreen from '../screens/Chat/ChatSessionScreen'
 import CourseCardScreen from '../screens/Courses/CourseCardScreen'
 import ChatBotSessionScreen from '../screens/Chat/ChatBotSessionScreen'
+import CourseTestScreen from '../screens/Courses/CourseTestScreen'
+import InterestSearchScreen from '../screens/Interest/InterestSearchScreen'
+
 
 const Stack = createStackNavigator()
 
@@ -29,9 +32,11 @@ const MainStack = () => {
             <Stack.Screen name='ICourse' component={ICourseScreen} />
             <Stack.Screen name='ICourseRoadMap' component={ICourseRoadMapScreen} />
             <Stack.Screen name='CourseDetail' component={CourseDetailScreen} />
+            <Stack.Screen name='CourseTest' component={CourseTestScreen} />
             <Stack.Screen name='CParticipants' component={CParticipantsScreen} />
             <Stack.Screen name='CourseMicro' component={CourseMicroScreen} />
             <Stack.Screen name='Cup' component={CupScreen} />
+            <Stack.Screen name='InterestSearch' component={InterestSearchScreen} />
             <Stack.Screen name='CurrentGoal' component={CurrentGoalScreen} />
             <Stack.Screen name='Evolution' component={EvolutionScreen} />
             <Stack.Screen name='SuccessCases' component={SuccessCasesScreen} />

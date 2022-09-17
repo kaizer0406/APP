@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { saveLevel } from '../../store/actions/level';
 import YouTube from 'react-native-youtube';
 import { useRef } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 export class CourseDetailScreen extends Component {
 
@@ -15,7 +16,9 @@ export class CourseDetailScreen extends Component {
     super(props);
     this.state = {
       isLoad: true, 
-      data: {}
+      data: {},
+      focused: true,
+      isApproved: false
     };
   }
 
@@ -30,7 +33,7 @@ export class CourseDetailScreen extends Component {
       }else{
         this.props.saveLevel(result)
         globals.level = result
-        this.setState({data: result})
+        this.setState({data: result, isApproved: result.is_finished})
         this.setState({isLoad: false})
       }
     }catch (e){
@@ -42,13 +45,23 @@ export class CourseDetailScreen extends Component {
   componentDidMount = async () => {
     await this.getLevel()
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.setState({data: this.props.level})
+      this.setState({data: this.props.level, focused: true})
+      console.log('globals => ', globals)
+      if (globals.isApproved == true)
+        this.setState({isApproved: true})
+    });
+
+    this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+      this.setState({focused: false})
     });
   }
 
   componentWillUnmount() {
     if (this._unsubscribe != null)
       this._unsubscribe();
+
+    if (this._unsubscribeBlur != null)
+      this._unsubscribeBlur();
   }
 
   goToMicrocourse = (course) => {
@@ -58,6 +71,11 @@ export class CourseDetailScreen extends Component {
     }else{
       this.props.navigation.navigate('CourseCard')
     }
+  }
+
+  goToTest = () => {
+    globals.test = this.state.data.test
+    this.props.navigation.navigate('CourseTest')
   }
 
   render() {
@@ -139,11 +157,14 @@ export class CourseDetailScreen extends Component {
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{this.state.data.speciality} - {this.state.data.name}</Text>  
             <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10}}>
               {/* <Image source={{uri: this.state.data.image}} style={{width: '100%', height: 300, borderRadius: 10}} /> */}
-              <YouTube
-                apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
-                style={{ alignSelf: 'stretch', height: 300, borderRadius: 10 }}
-                videoId={this.state.data.video}
-              />
+              {
+                this.state.focused && 
+                  <YouTube
+                  apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
+                  style={{ alignSelf: 'stretch', height: 300, borderRadius: 10 }}
+                  videoId={this.state.data.speciality_video}
+                  />
+              }
             </View>
             <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginTop: 12, marginBottom: 20}} >Microcursos</Text>
               {
@@ -166,6 +187,18 @@ export class CourseDetailScreen extends Component {
                   </View>
                 )
               )}
+              <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginBottom: 20}} >Termina el nivel realizando el test:</Text>
+              <TouchableOpacity onPress={() => {this.goToTest()}} activeOpacity={5} style={{borderRadius: 10, flexDirection: 'row', justifyContent: 'space-between', padding: 15, backgroundColor: colors.tealishBlue, marginBottom: 20}}>
+                  <View style={{flexDirection: 'row'}}>
+                    <View style={{justifyContent: 'center'}}>
+                      <Image source={images.test} style={{height: 20, width: 20, resizeMode: 'contain', marginRight: 5}} />
+                    </View>
+                    <Text style={{fontFamily: constants.openSansSemiBold, fontSize: 14, flexWrap: 'wrap', textAlignVertical: 'center', width: 220}}>PRUEBA</Text>
+                  </View>
+                  {this.state.isApproved && 
+                      <Text style={{fontFamily: constants.openSansBold, fontSize: 14, color: colors.white }}>APROBADO</Text>
+                  }
+              </TouchableOpacity>
               {this.state.data.certificates.length > 0 && 
                 <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginBottom: 20}} >Si quisiera tener certificado tenemos las siguientes opciones:</Text>
               }

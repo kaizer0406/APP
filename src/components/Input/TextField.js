@@ -18,6 +18,7 @@ const TextField = ({label, onChangeText, value, placeholder = '', keyboardType =
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
         placeholder={placeholder}
+        
         />
     </View>
   )

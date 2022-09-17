@@ -4,9 +4,9 @@ import { colors, constants, globals, images } from '../../utils'
 import { Text } from '@rneui/themed';
 import {Button} from '@rneui/base'
 import { apiLevel, apiSpeciality } from '../../services';
-import MatriculatedModal from '../../components/Modal/MatriculatedModal';
 import LoadingModal from '../../components/Modal/LoadingModal'
 import YouTube from 'react-native-youtube';
+import MatriculatedModal from '../../components/Modal/MatriculatedModal';
 
 
 const levels = [
@@ -23,6 +23,7 @@ export class ICourseScreen extends Component {
       isLoad: true,
       data: {}, 
       level: {}, 
+      focused: true,
       isLoadMatriculated: false,
       showMatriculated: false
     };
@@ -48,6 +49,22 @@ export class ICourseScreen extends Component {
 
   componentDidMount = async () => {
     await this.getSpeciality()
+
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.setState({focused: true})
+    });
+
+    this._unsubscribeBlur = this.props.navigation.addListener('blur', () => {
+      this.setState({focused: false})
+    });
+  }
+
+  componentWillUnmount() {
+    if (this._unsubscribe != null)
+      this._unsubscribe();
+
+    if (this._unsubscribeBlur != null)
+      this._unsubscribeBlur();
   }
 
   enrolledLevel = async () => {
@@ -154,11 +171,13 @@ export class ICourseScreen extends Component {
             <Text style={{fontSize: 28, fontFamily: constants.openSansBold, marginTop: 17}}>{this.state.data.name}</Text>  
             <View style={{backgroundColor: colors.white, elevation: 5, borderRadius: 10, marginTop: 10}}>
               {/* <Image source={{uri: this.state.data.image}} style={{width: '100%', height: 300, borderRadius: 10}} /> */}
+              {this.state.focused && 
               <YouTube
-                apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
-                style={{ alignSelf: 'stretch', height: 300, borderRadius: 10 }}
-                videoId={this.state.data.video}
+              apiKey='AIzaSyAmDW7Q_iIRo8teA94arZB48KfUOmALZ_E'
+              style={{ alignSelf: 'stretch', height: 300, borderRadius: 10 }}
+              videoId={this.state.data.video}
               />
+              }
             </View>
             <Text style={{fontSize: 18, fontFamily: constants.openSansRegular, marginTop: 10}}>{this.state.data.description} </Text>
             <Text style={{fontFamily: constants.openSansBold, fontSize: 20, marginTop: 12, marginBottom: 20}} >Niveles</Text>

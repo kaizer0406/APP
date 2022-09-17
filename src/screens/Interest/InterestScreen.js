@@ -4,19 +4,15 @@ import { Text } from '@rneui/themed'
 import { colors, constants, globals, images } from '../../utils'
 import EspecialityItem from '../../components/Option/EspecialityItem'
 import { apiSpeciality } from '../../services'
-
-const options = [
-  {image: images.marketing, text: 'Marketing', levels: 3, navigation: ''},
-  {image: images.uxDesign, text: 'Diseños UX',levels: 3, navigation: ''},
-  {image: images.crm, text: 'CRM', levels:3, navigation: ''},
-]
-
+import TextField from '../../components/Input/TextField';
+import { TouchableWithoutFeedback } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 export class InterestScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoad: true,
-      data: []
+      data: [],
     };
     // this.controller = new AbortController();
   }
@@ -64,6 +60,9 @@ export class InterestScreen extends Component {
         <View style={{height: 30}} /> 
         <Text style={{fontSize: 18, fontFamily: constants.openSansBold}}>Dale un vistazo a todos nuestras especialidades disponibles para ti.</Text>
         </View>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('InterestSearch')} activeOpacity={1} style={{borderRadius: 10, backgroundColor: colors.white, marginHorizontal: 20, marginVertical: 5, padding: 10, elevation: 3}}>
+          <Text style={{fontFamily: constants.openSansRegular, fontSize: 16}}>Buscar.......</Text>
+        </TouchableOpacity>
         {this.state.isLoad ? 
           <View style={{flex: 1, justifyContent: 'center'}}>
             <ActivityIndicator size="large" color={colors.magenta} />
