@@ -1,9 +1,8 @@
-import { View, StyleSheet, Image, ScrollView, TouchableOpacity, FlatList, ToastAndroid, ActivityIndicator, Keyboard} from 'react-native'
+import { View, StyleSheet, Image, TouchableOpacity, FlatList, ToastAndroid, ActivityIndicator} from 'react-native'
 import React, { Component } from 'react'
 import { colors, constants, images } from '../../utils'
 import {  Input, Text } from '@rneui/themed';
 import {Button} from '@rneui/base'
-import {  } from 'react-native-gesture-handler';
 import ChatCard from '../../components/Card/ChatCard';
 import { apiContacts } from '../../services';
 import firestore from '@react-native-firebase/firestore'

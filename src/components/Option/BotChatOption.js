@@ -9,7 +9,7 @@ const BotChatOption = ({onPress}) => {
         <View style={{flexDirection: 'row'}}>
         <Image source={images.alice_bot} style={{height: 50, width: 50 , resizeMode: 'contain'}} /> 
         <View style={{justifyContent: 'center'}}>
-            <Text style={{fontSize: 18, fontFamily: constants.openSansBold, marginLeft: 10}}>Kaiti Mitchel</Text>
+            <Text style={{fontSize: 18, fontFamily: constants.openSansBold, marginLeft: 10}}>Sofia</Text>
             <Text style={{fontSize: 14, fontFamily: constants.openSansRegular, marginLeft: 10}}>Bot asistente</Text>
         </View>
         </View>
